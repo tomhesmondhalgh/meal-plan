@@ -645,7 +645,8 @@ function getOptions(slot) {
 
 function getAllOptionsGrouped(slot) {
   const categories = ["breakfasts", "lunches", "dinners", "snacks"];
-  const primary = slot === "snack" ? "snacks" : slot + "s";
+  const slotToCategory = { breakfast: "breakfasts", lunch: "lunches", dinner: "dinners", snack: "snacks" };
+  const primary = slotToCategory[slot] || slot + "s";
   const labels = { breakfasts: "Breakfasts", lunches: "Lunches", dinners: "Dinners", snacks: "Snacks" };
   const ordered = [primary, ...categories.filter((c) => c !== primary)];
   return ordered.map((cat) => ({ label: labels[cat], meals: MEALS[cat], isPrimary: cat === primary }));
