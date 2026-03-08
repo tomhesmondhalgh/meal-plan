@@ -87,6 +87,39 @@ const MEALS = {
       method:
         "Mix oats, milk, protein powder, and chia in a jar. Top with frozen fruit. Refrigerate overnight.",
     },
+    {
+      id: "b6",
+      name: "Baked Protein Pancake Pucks",
+      time: "30 mins (batch)",
+      cal: 440,
+      protein: 33,
+      icon: "🥞",
+      ingredients: [
+        "6 eggs (batch of 12 pucks / 6 portions)",
+        "300g Greek yoghurt",
+        "420ml milk",
+        "210g plain flour",
+        "150g protein powder",
+        "3 tsp baking powder",
+        "6 tbsp chia seeds",
+        "300g raspberries (or mixed berries)",
+      ],
+      method:
+        "Heat oven to 180°C (160°C fan). Whisk eggs, yoghurt and milk. Mix in flour, protein powder, baking powder and chia. Fold in berries. Pour into silicone muffin trays (two-thirds full). Bake 20–25 mins. Cool and freeze. Reheat: microwave 60–90 secs from frozen. Makes 12 pucks (2 per portion).",
+    },
+    {
+      id: "b7",
+      name: "Greek Yoghurt & Granola",
+      time: "2 mins",
+      cal: 445,
+      protein: 16,
+      icon: "🥣",
+      ingredients: [
+        "200g Greek yoghurt",
+        "40g granola (weighed)",
+      ],
+      method: "Spoon yoghurt into a bowl. Weigh and add granola.",
+    },
   ],
   lunches: [
     {
@@ -184,6 +217,98 @@ const MEALS = {
       ],
       method:
         "Batch cook: soften onion and garlic, add spices, tomatoes, beans, and stock. Simmer 15 mins. Makes 3–4 portions. Reheat and serve with toast.",
+    },
+    {
+      id: "l6",
+      name: "Veggie Chilli + Greek Yoghurt",
+      time: "45 mins (batch)",
+      cal: 580,
+      protein: 25,
+      icon: "🌶️",
+      tags: ["🏢", "🏠"],
+      ingredients: [
+        "300g dried beans (any mix)",
+        "1 large onion, diced",
+        "2 peppers, diced",
+        "2 cloves garlic",
+        "2 × 400g tins chopped tomatoes",
+        "1 tbsp olive oil",
+        "2 tsp cumin, 2 tsp smoked paprika",
+        "Chilli flakes, salt and pepper",
+        "100g Greek yoghurt (per portion)",
+      ],
+      method:
+        "Soak and cook beans. Soften onion, peppers and garlic in oil. Add spices, tomatoes and beans. Simmer 30 mins. Serve topped with Greek yoghurt. Makes 4 portions.",
+    },
+    {
+      id: "l7",
+      name: "Warm Winter Salad",
+      time: "40 mins (batch)",
+      cal: 580,
+      protein: 28,
+      icon: "🥗",
+      tags: ["🏢", "🏠"],
+      ingredients: [
+        "250g lentil pasta (dry)",
+        "1 medium butternut squash (~600g), cubed",
+        "1 tin chickpeas (drained)",
+        "1 large head broccoli, florets",
+        "200g feta (50g per portion)",
+        "30g mixed seeds",
+        "2 tbsp olive oil",
+        "Dressing of choice",
+      ],
+      method:
+        "Roast cubed squash with chickpeas and broccoli at 200°C for 25–35 mins. Cook pasta. Combine, crumble feta, scatter seeds, dress. Makes 4 portions.",
+    },
+    {
+      id: "l8",
+      name: "Baked Dhal + Greek Yoghurt",
+      time: "50 mins (batch)",
+      cal: 740,
+      protein: 25,
+      icon: "🍛",
+      tags: ["🏢", "🏠"],
+      ingredients: [
+        "250g red lentils (dry)",
+        "1 onion, finely chopped",
+        "2 cloves garlic",
+        "1 tbsp olive oil",
+        "2 tsp cumin, 1 tsp turmeric, chilli flakes",
+        "1 × 400g tin chopped tomatoes",
+        "750ml vegetable stock",
+        "200ml coconut milk",
+        "750g sweet potatoes, thinly sliced",
+        "2 tbsp tamarind paste",
+        "Lime juice",
+        "150g Greek yoghurt (per portion)",
+      ],
+      method:
+        "Soften onion and garlic with spices. Add lentils, tomatoes, stock and coconut milk. Simmer 5 mins. Pour into baking dish, top with sliced sweet potatoes and tamarind. Bake at 200°C for 30–40 mins. Finish with lime juice and yoghurt. Makes 4 portions.",
+    },
+    {
+      id: "l9",
+      name: "Sweet Potato Ginger & Coconut Stew",
+      time: "40 mins (batch)",
+      cal: 675,
+      protein: 24,
+      icon: "🍲",
+      tags: ["🏢", "🏠"],
+      ingredients: [
+        "1 onion, chopped",
+        "2 cloves garlic",
+        "30g fresh ginger, grated",
+        "1 tbsp olive oil",
+        "600g sweet potatoes, cubed",
+        "150g red lentils (dry)",
+        "1 tin chickpeas (drained)",
+        "1 × 400g tin chopped tomatoes",
+        "800ml vegetable stock",
+        "200ml coconut milk",
+        "100g Greek yoghurt (per portion)",
+      ],
+      method:
+        "Soften onion, garlic and ginger in oil. Add sweet potatoes, lentils, chickpeas, tomatoes, stock and coconut milk. Simmer 25–30 mins until tender. Serve topped with Greek yoghurt. Makes 4 portions.",
     },
   ],
   dinners: [
@@ -316,6 +441,83 @@ const MEALS = {
       method:
         "Fill tortilla with beans and cheese. Dry-fry 2–3 mins each side until crispy and cheese melts. Serve with avocado and salsa.",
     },
+    {
+      id: "d8",
+      name: "Scrambled Eggs & Cottage Cheese on Toast",
+      time: "8 mins",
+      cal: 420,
+      protein: 28,
+      icon: "🍳",
+      doubles: false,
+      ingredients: [
+        "3 eggs",
+        "50g cottage cheese",
+        "2 slices bread (~80g)",
+        "1 tsp butter",
+        "Salt and pepper",
+      ],
+      method:
+        "Toast bread. Beat eggs with salt and pepper. Melt butter in a pan, scramble eggs gently until just set. Fold in cottage cheese. Serve on toast.",
+    },
+    {
+      id: "d9",
+      name: "Jacket Potato with Cottage Cheese & Salad",
+      time: "60 mins (or 10 microwave)",
+      cal: 500,
+      protein: 28,
+      icon: "🥔",
+      doubles: false,
+      ingredients: [
+        "1 large baking potato (~300g)",
+        "150g cottage cheese",
+        "Mixed salad leaves",
+        "Cherry tomatoes",
+        "Cucumber",
+        "Olive oil and vinegar",
+        "Salt and pepper",
+      ],
+      method:
+        "Bake potato at 200°C for 50–60 mins (or microwave 8–10 mins). Split open, fill with cottage cheese. Serve with salad dressed with oil and vinegar.",
+    },
+    {
+      id: "d10",
+      name: "Greek Salad Bowl",
+      time: "10 mins",
+      cal: 520,
+      protein: 26,
+      icon: "🥗",
+      doubles: false,
+      ingredients: [
+        "150g cooked chickpeas (half a tin, drained)",
+        "100g feta, cubed",
+        "1 large tomato, chopped",
+        "Half cucumber, chopped",
+        "Quarter red onion, sliced",
+        "50g olives",
+        "2 tbsp olive oil",
+        "1 tbsp lemon juice",
+        "Dried oregano, salt and pepper",
+      ],
+      method:
+        "Chop tomato, cucumber and onion. Combine with chickpeas and olives. Crumble feta over. Dress with olive oil, lemon juice and oregano.",
+    },
+    {
+      id: "d11",
+      name: "Tomato Soup & Cheese Toastie",
+      time: "10 mins",
+      cal: 460,
+      protein: 19,
+      icon: "🍲",
+      doubles: false,
+      ingredients: [
+        "1 tin Heinz tomato soup (400g)",
+        "2 slices bread",
+        "40g cheddar cheese, grated",
+        "1 tsp butter",
+      ],
+      method:
+        "Heat soup. Butter bread, fill with cheese, toast in a dry pan until golden and cheese melts. Cut sandwich in half. Serve half with soup.",
+    },
   ],
   snacks: [
     { id: "s1", name: "Apple + peanut butter", detail: "1 apple + 20g PB", cal: 200, protein: 6, icon: "🍎" },
@@ -323,6 +525,9 @@ const MEALS = {
     { id: "s3", name: "Rice cakes + cream cheese", detail: "2 rice cakes + 30g cream cheese + cucumber", cal: 160, protein: 4, icon: "🍘" },
     { id: "s4", name: "Protein shake", detail: "30g powder + 200ml milk", cal: 220, protein: 28, icon: "🥤" },
     { id: "s5", name: "Greek yoghurt + honey", detail: "150g yoghurt + 10g honey", cal: 180, protein: 15, icon: "🍯" },
+    { id: "s6", name: "Hummus & veg sticks", detail: "60g hummus + carrot, cucumber, pepper sticks", cal: 170, protein: 6, icon: "🥕" },
+    { id: "s7", name: "Wensleydale cheese", detail: "40g Wensleydale cheese", cal: 140, protein: 8, icon: "🧀" },
+    { id: "s8", name: "Options hot chocolate", detail: "1 sachet Options hot chocolate + hot water", cal: 40, protein: 1, icon: "☕" },
   ],
 };
 
@@ -345,6 +550,14 @@ const SLOT_COLORS = {
   snack: { bg: "#FFF5F5", border: "#DDAAAA", accent: "#A05050", tag: "#FCE8E8" },
 };
 
+const MOTIVATIONS = [
+  "To feel in control",
+  "To look great",
+  "To move better",
+  "To fit my clothes",
+  "To accomplish something hard",
+];
+
 const LS_WEEK_KEY = "mealplan-week";
 const LS_CHECKED_KEY = "mealplan-checked";
 const LS_SHOPPING_CHECKED_KEY = "mealplan-shopping-checked";
@@ -359,6 +572,14 @@ function getOptions(slot) {
   if (slot === "lunch") return MEALS.lunches;
   if (slot === "dinner") return MEALS.dinners;
   return MEALS.snacks;
+}
+
+function getAllOptionsGrouped(slot) {
+  const categories = ["breakfasts", "lunches", "dinners", "snacks"];
+  const primary = slot === "snack" ? "snacks" : slot + "s";
+  const labels = { breakfasts: "Breakfasts", lunches: "Lunches", dinners: "Dinners", snacks: "Snacks" };
+  const ordered = [primary, ...categories.filter((c) => c !== primary)];
+  return ordered.map((cat) => ({ label: labels[cat], meals: MEALS[cat], isPrimary: cat === primary }));
 }
 
 function generateShoppingList(week) {
@@ -429,6 +650,8 @@ export default function App() {
   const [openRecipe, setOpenRecipe] = useState(null);
   const [swapping, setSwapping] = useState(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
+  const [showMotivation, setShowMotivation] = useState(true);
+  const [showWeeklySummary, setShowWeeklySummary] = useState(false);
   const [shoppingChecked, setShoppingChecked] = useState(() => {
     try {
       const stored = localStorage.getItem(LS_SHOPPING_CHECKED_KEY);
@@ -474,6 +697,36 @@ export default function App() {
     setShoppingChecked({});
   }, []);
 
+  const handleClearAll = useCallback(() => {
+    if (window.confirm("Reset the entire week to defaults and clear all logged meals?")) {
+      setWeek(DEFAULT_WEEK);
+      setChecked({});
+      setShoppingChecked({});
+    }
+  }, []);
+
+  const handleShuffle = useCallback(() => {
+    if (window.confirm("Randomise all meals for the week? This will clear logged meals.")) {
+      const newWeek = {};
+      const prev = {};
+      DAYS.forEach((day) => {
+        newWeek[day] = {};
+        ["breakfast", "lunch", "dinner", "snack"].forEach((slot) => {
+          const options = getOptions(slot);
+          const prevId = prev[slot];
+          let filtered = prevId ? options.filter((m) => m.id !== prevId) : options;
+          if (filtered.length === 0) filtered = options;
+          const pick = filtered[Math.floor(Math.random() * filtered.length)];
+          newWeek[day][slot] = pick.id;
+          prev[slot] = pick.id;
+        });
+      });
+      setWeek(newWeek);
+      setChecked({});
+      setShoppingChecked({});
+    }
+  }, []);
+
   const dayPlan = week[selectedDay];
   const dayCalories = ["breakfast", "lunch", "dinner", "snack"].reduce((sum, slot) => {
     const m = getMeal(dayPlan[slot]);
@@ -483,6 +736,43 @@ export default function App() {
     const m = getMeal(dayPlan[slot]);
     return sum + (m?.protein || 0);
   }, 0);
+
+  // Streak: count consecutive days (ending at today) with all 4 meals logged
+  const streak = useMemo(() => {
+    const todayIndex = DAYS.indexOf(today);
+    let count = 0;
+    for (let i = 0; i < 7; i++) {
+      const dayIdx = ((todayIndex - i) % 7 + 7) % 7;
+      const d = DAYS[dayIdx];
+      const allLogged = ["breakfast", "lunch", "dinner", "snack"].every(
+        (slot) => checked[`${d}-${slot}`]
+      );
+      if (allLogged) count++;
+      else break;
+    }
+    return count;
+  }, [checked, today]);
+
+  // Weekly summary stats
+  const weeklySummary = useMemo(() => {
+    let totalCal = 0, totalProtein = 0, logged = 0, total = 0;
+    const dayStats = [];
+    DAYS.forEach((d) => {
+      const dp = week[d];
+      let dayCal = 0, dayPro = 0, dayLogged = 0;
+      ["breakfast", "lunch", "dinner", "snack"].forEach((slot) => {
+        const m = getMeal(dp[slot]);
+        dayCal += m?.cal || 0;
+        dayPro += m?.protein || 0;
+        total++;
+        if (checked[`${d}-${slot}`]) { logged++; dayLogged++; }
+      });
+      totalCal += dayCal;
+      totalProtein += dayPro;
+      dayStats.push({ day: d, cal: dayCal, protein: dayPro, logged: dayLogged });
+    });
+    return { totalCal, totalProtein, avgProtein: Math.round(totalProtein / 7), logged, total, dayStats };
+  }, [week, checked]);
 
   // Recipe detail modal
   if (openRecipe) {
@@ -595,7 +885,7 @@ export default function App() {
   // Swap picker modal
   if (swapping) {
     const { day, slot } = swapping;
-    const options = getOptions(slot);
+    const groups = getAllOptionsGrouped(slot);
     const colors = SLOT_COLORS[slot];
     const current = week[day][slot];
 
@@ -616,31 +906,126 @@ export default function App() {
           <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 22, margin: "8px 0 20px", color: "#1a1a1a" }}>
             Swap {SLOT_LABELS[slot]} — {day}
           </h1>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, paddingBottom: 32 }}>
-            {options.map((meal) => (
-              <button
-                key={meal.id}
-                onClick={() => handleSwap(day, slot, meal.id)}
+          <div style={{ paddingBottom: 32 }}>
+            {groups.map((group) => (
+              <div key={group.label}>
+                <div style={{
+                  fontSize: 12, fontWeight: 700, textTransform: "uppercase",
+                  letterSpacing: 1, color: "#999", padding: "16px 0 8px",
+                  borderTop: group.isPrimary ? "none" : "1px solid #eee",
+                  marginTop: group.isPrimary ? 0 : 8,
+                }}>
+                  {group.label}
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {group.meals.map((meal) => (
+                    <button
+                      key={meal.id}
+                      onClick={() => handleSwap(day, slot, meal.id)}
+                      style={{
+                        display: "flex", alignItems: "center", gap: 14,
+                        padding: "14px 16px", borderRadius: 14,
+                        background: meal.id === current ? colors.tag : "white",
+                        border: `1.5px solid ${meal.id === current ? colors.accent : "#e0e0e0"}`,
+                        cursor: "pointer", textAlign: "left", fontFamily: "inherit",
+                        transition: "all 0.15s",
+                      }}
+                    >
+                      <span style={{ fontSize: 28, flexShrink: 0 }}>{meal.icon}</span>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: 600, fontSize: 15, color: "#1a1a1a", marginBottom: 2 }}>
+                          {meal.name} {meal.id === current && "✓"}
+                        </div>
+                        <div style={{ fontSize: 13, color: "#888" }}>
+                          {meal.cal} cal · {meal.protein}g protein
+                          {meal.time && ` · ${meal.time}`}
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Weekly summary view
+  if (showWeeklySummary) {
+    return (
+      <div style={{ minHeight: "100vh", background: "#FAFAF7", fontFamily: "'DM Sans', sans-serif" }}>
+        <div style={{ maxWidth: 480, margin: "0 auto", padding: "0 16px 32px" }}>
+          <button
+            onClick={() => setShowWeeklySummary(false)}
+            style={{
+              position: "sticky", top: 0, zIndex: 10, background: "#FAFAF7",
+              width: "100%", padding: "16px 0 8px", border: "none", cursor: "pointer",
+              display: "flex", alignItems: "center", gap: 8, fontSize: 15, color: "#666",
+              fontFamily: "inherit",
+            }}
+          >
+            <span style={{ fontSize: 18 }}>←</span> Back to Meal Plan
+          </button>
+
+          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 24, margin: "0 0 20px", color: "#1a1a1a" }}>
+            Weekly Summary
+          </h1>
+
+          {/* Top-level stats */}
+          <div style={{
+            display: "flex", justifyContent: "center", gap: 20, marginBottom: 24,
+            background: "white", borderRadius: 16, border: "1px solid #e8e8e4", padding: "20px 16px",
+          }}>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontWeight: 700, fontSize: 22, color: "#1a1a1a" }}>
+                {Math.round(weeklySummary.totalCal / 7)}
+              </div>
+              <div style={{ color: "#999", fontSize: 12 }}>avg cal / day</div>
+            </div>
+            <div style={{ width: 1, background: "#e0e0e0" }} />
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontWeight: 700, fontSize: 22, color: "#1a1a1a" }}>{weeklySummary.avgProtein}g</div>
+              <div style={{ color: "#999", fontSize: 12 }}>avg protein / day</div>
+            </div>
+            <div style={{ width: 1, background: "#e0e0e0" }} />
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontWeight: 700, fontSize: 22, color: "#1a1a1a" }}>
+                {weeklySummary.logged}/{weeklySummary.total}
+              </div>
+              <div style={{ color: "#999", fontSize: 12 }}>meals logged</div>
+            </div>
+          </div>
+
+          {/* Per-day breakdown */}
+          <div style={{
+            background: "white", borderRadius: 16, border: "1px solid #e8e8e4", overflow: "hidden",
+          }}>
+            {weeklySummary.dayStats.map((ds, i) => (
+              <div
+                key={ds.day}
                 style={{
-                  display: "flex", alignItems: "center", gap: 14,
-                  padding: "14px 16px", borderRadius: 14,
-                  background: meal.id === current ? colors.tag : "white",
-                  border: `1.5px solid ${meal.id === current ? colors.accent : "#e0e0e0"}`,
-                  cursor: "pointer", textAlign: "left", fontFamily: "inherit",
-                  transition: "all 0.15s",
+                  display: "flex", alignItems: "center", padding: "14px 16px",
+                  borderBottom: i < 6 ? "1px solid #f0f0f0" : "none",
                 }}
               >
-                <span style={{ fontSize: 28, flexShrink: 0 }}>{meal.icon}</span>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 600, fontSize: 15, color: "#1a1a1a", marginBottom: 2 }}>
-                    {meal.name} {meal.id === current && "✓"}
-                  </div>
-                  <div style={{ fontSize: 13, color: "#888" }}>
-                    {meal.cal} cal · {meal.protein}g protein
-                    {meal.time && ` · ${meal.time}`}
-                  </div>
+                <div style={{ width: 40, fontWeight: 700, fontSize: 14, color: ds.day === today ? "#C47D2B" : "#1a1a1a" }}>
+                  {ds.day}
                 </div>
-              </button>
+                <div style={{ flex: 1, fontSize: 13, color: "#777" }}>
+                  {ds.cal} cal · {ds.protein}g
+                </div>
+                <div style={{ display: "flex", gap: 4 }}>
+                  {[0, 1, 2, 3].map((j) => (
+                    <div key={j} style={{
+                      width: 10, height: 10, borderRadius: 5,
+                      background: j < ds.logged ? "#4a8a4a" : "#e0e0e0",
+                      transition: "background 0.2s",
+                    }} />
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -764,6 +1149,14 @@ export default function App() {
           <div style={{ fontSize: 13, color: "#999", letterSpacing: 1 }}>
             ~2,200 cal · ~130g protein · daily
           </div>
+          {streak > 0 && (
+            <div style={{
+              marginTop: 6, display: "inline-block", fontSize: 13, fontWeight: 600,
+              background: "#FFF3E0", color: "#E65100", padding: "3px 12px", borderRadius: 20,
+            }}>
+              {streak} day streak
+            </div>
+          )}
         </div>
 
         {/* Day selector */}
@@ -819,6 +1212,35 @@ export default function App() {
             <div style={{ color: "#999", fontSize: 12 }}>logged</div>
           </div>
         </div>
+
+        {/* Motivation card */}
+        <button
+          onClick={() => setShowMotivation((p) => !p)}
+          style={{
+            width: "100%", marginBottom: 16, padding: "12px 16px", borderRadius: 12,
+            background: "#F8F0FF", border: "1px solid #E0D0F0",
+            cursor: "pointer", textAlign: "left", fontFamily: "inherit",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: "#7B5EA7" }}>
+              Why I'm doing this
+            </span>
+            <span style={{ fontSize: 14, color: "#7B5EA7", fontWeight: 600 }}>{showMotivation ? "−" : "+"}</span>
+          </div>
+          {showMotivation && (
+            <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {MOTIVATIONS.map((m) => (
+                <span key={m} style={{
+                  fontSize: 12, padding: "4px 10px", borderRadius: 20,
+                  background: "#EDE4F7", color: "#5C3D8F",
+                }}>
+                  {m}
+                </span>
+              ))}
+            </div>
+          )}
+        </button>
 
         {/* Meal cards */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -919,7 +1341,7 @@ export default function App() {
           <strong>Log before you eat.</strong> Weigh your portions. Enjoy every bite.
         </div>
 
-        {/* Shopping list button */}
+        {/* Footer buttons */}
         <button
           onClick={() => setShowShoppingList(true)}
           style={{
@@ -931,6 +1353,39 @@ export default function App() {
         >
           Shopping List
         </button>
+        <button
+          onClick={() => setShowWeeklySummary(true)}
+          style={{
+            width: "100%", marginTop: 10, padding: "14px 0", borderRadius: 14,
+            border: "1.5px solid #1a1a1a", background: "#1a1a1a", color: "white",
+            fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+          }}
+        >
+          Weekly Summary
+        </button>
+        <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
+          <button
+            onClick={handleShuffle}
+            style={{
+              flex: 1, padding: "14px 0", borderRadius: 14,
+              border: "1.5px solid #ddd", background: "white", color: "#888",
+              fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+            }}
+          >
+            Shuffle Week
+          </button>
+          <button
+            onClick={handleClearAll}
+            style={{
+              flex: 1, padding: "14px 0", borderRadius: 14,
+              border: "1.5px solid #ddd", background: "white", color: "#888",
+              fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+            }}
+          >
+            Clear All
+          </button>
+        </div>
       </div>
     </div>
   );
