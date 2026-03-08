@@ -705,8 +705,7 @@ export default function App() {
   const [showMotivation, setShowMotivation] = useState(true);
   const [showWeeklySummary, setShowWeeklySummary] = useState(false);
   const [shoppingChecked, setShoppingChecked] = useState(() => loadShoppingChecked(activeUser));
-
-  const userConfig = USERS[activeUser];
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   useEffect(() => {
     localStorage.setItem(lsKey(LS_WEEK_KEY, activeUser), JSON.stringify(week));
@@ -1274,18 +1273,9 @@ export default function App() {
 
         {/* Header */}
         <div style={{ padding: "24px 0 16px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-            <div>
-              <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, margin: 0, color: "#1a1a1a", letterSpacing: -0.5 }}>
-                Meal Plan
-              </h1>
-              {userConfig.showTargets && (
-                <div style={{ fontSize: 12, color: "#aaa", marginTop: 2, letterSpacing: 0.5 }}>
-                  ~2,200 cal · ~130g protein · daily
-                </div>
-              )}
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "relative", marginBottom: 10 }}>
+            {/* Left: streak badge */}
+            <div style={{ position: "absolute", left: 0, display: "flex", alignItems: "center" }}>
               {streak > 0 && (
                 <div style={{
                   fontSize: 12, fontWeight: 700,
@@ -1296,26 +1286,58 @@ export default function App() {
                   🔥 {streak}
                 </div>
               )}
-              <div style={{
-                display: "flex", background: "white", borderRadius: 10, padding: 3,
-                border: "1px solid #e8e8e4", boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-              }}>
-                {Object.entries(USERS).map(([key, u]) => (
-                  <button
-                    key={key}
-                    onClick={() => switchUser(key)}
-                    style={{
-                      padding: "6px 16px", borderRadius: 8, border: "none",
-                      fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
-                      background: key === activeUser ? "linear-gradient(135deg, #D4842C, #C47D2B)" : "transparent",
-                      color: key === activeUser ? "white" : "#999",
-                      transition: "all 0.2s",
-                    }}
-                  >
-                    {u.name}
-                  </button>
-                ))}
-              </div>
+            </div>
+
+            {/* Centre: title */}
+            <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, margin: 0, color: "#1a1a1a", letterSpacing: -0.5 }}>
+              Meal Plan
+            </h1>
+
+            {/* Right: user picker */}
+            <div style={{ position: "absolute", right: 0 }}>
+              <button
+                onClick={() => setShowUserMenu((p) => !p)}
+                style={{
+                  display: "flex", alignItems: "center", gap: 6,
+                  padding: "6px 14px", borderRadius: 10, border: "1px solid #e8e8e4",
+                  background: "white", cursor: "pointer", fontFamily: "inherit",
+                  fontSize: 13, fontWeight: 600, color: "#1a1a1a",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                }}
+              >
+                <span style={{ fontSize: 15 }}>👤</span> {USERS[activeUser].name}
+              </button>
+              {showUserMenu && (
+                <>
+                  <div
+                    onClick={() => setShowUserMenu(false)}
+                    style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 20 }}
+                  />
+                  <div style={{
+                    position: "absolute", right: 0, top: "calc(100% + 6px)", zIndex: 21,
+                    background: "white", borderRadius: 12, border: "1px solid #e8e8e4",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.1)", overflow: "hidden", minWidth: 140,
+                  }}>
+                    {Object.entries(USERS).map(([key, u]) => (
+                      <button
+                        key={key}
+                        onClick={() => { switchUser(key); setShowUserMenu(false); }}
+                        style={{
+                          width: "100%", padding: "12px 16px", border: "none",
+                          background: key === activeUser ? "#FDF8F3" : "white",
+                          cursor: "pointer", fontFamily: "inherit",
+                          fontSize: 14, fontWeight: 500, color: "#1a1a1a",
+                          display: "flex", justifyContent: "space-between", alignItems: "center",
+                          borderBottom: key !== Object.keys(USERS).at(-1) ? "1px solid #f5f5f0" : "none",
+                        }}
+                      >
+                        {u.name}
+                        {key === activeUser && <span style={{ color: "#D4842C", fontWeight: 700 }}>✓</span>}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -1399,8 +1421,8 @@ export default function App() {
           );
         })()}
 
-        {/* Motivation card */}
-        <button
+        {/* Motivation card (Tom only) */}
+        {activeUser === "tom" && <button
           onClick={() => setShowMotivation((p) => !p)}
           style={{
             width: "100%", marginBottom: 14, padding: showMotivation ? "10px 14px 12px" : "10px 14px",
@@ -1441,7 +1463,7 @@ export default function App() {
               ))}
             </div>
           )}
-        </button>
+        </button>}
 
         {/* Meal cards */}
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
