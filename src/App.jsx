@@ -864,30 +864,44 @@ export default function App() {
 
     return (
       <div style={{ minHeight: "100vh", background: "#FAFAF7", fontFamily: "'DM Sans', sans-serif" }}>
-        <div style={{ maxWidth: 480, margin: "0 auto", padding: "0 16px" }}>
-          <button
-            onClick={() => setOpenRecipe(null)}
-            style={{
-              position: "sticky", top: 0, zIndex: 10, background: "#FAFAF7",
-              width: "100%", padding: "16px 0 8px", border: "none", cursor: "pointer",
-              display: "flex", alignItems: "center", gap: 8, fontSize: 15, color: "#666",
-              fontFamily: "inherit",
-            }}
-          >
-            <span style={{ fontSize: 18 }}>←</span> Back to {selectedDay}
-          </button>
+        {/* Colored header band */}
+        <div style={{
+          background: `linear-gradient(135deg, ${colors.accent}, ${colors.accent}dd)`,
+          padding: "0 16px", minHeight: 120,
+        }}>
+          <div style={{ maxWidth: 480, margin: "0 auto" }}>
+            <button
+              onClick={() => setOpenRecipe(null)}
+              style={{
+                position: "sticky", top: 0, zIndex: 10,
+                width: "100%", padding: "16px 0 8px", border: "none", cursor: "pointer",
+                display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "rgba(255,255,255,0.8)",
+                fontFamily: "inherit", background: "transparent", fontWeight: 500,
+              }}
+            >
+              <span style={{ fontSize: 16 }}>←</span> Back to {selectedDay}
+            </button>
+            <div style={{ fontSize: 44, marginBottom: 4, marginTop: 4 }}>{meal.icon}</div>
+          </div>
+        </div>
 
-          <div style={{ padding: "8px 0 32px" }}>
-            <div style={{ fontSize: 40, marginBottom: 8 }}>{meal.icon}</div>
-            <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 26, margin: "0 0 4px", color: "#1a1a1a" }}>
+        <div style={{ maxWidth: 480, margin: "0 auto", padding: "0 16px" }}>
+          <div style={{ padding: "16px 0 32px" }}>
+            <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 26, margin: "0 0 8px", color: "#1a1a1a", letterSpacing: -0.3 }}>
               {meal.name}
             </h1>
-            <div style={{ display: "flex", gap: 12, fontSize: 14, color: "#777", marginBottom: 20 }}>
-              <span>⏱ {meal.time}</span>
-              <span style={{ background: colors.tag, color: colors.accent, padding: "2px 10px", borderRadius: 20, fontWeight: 600 }}>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 13, marginBottom: 20 }}>
+              <span style={{ color: "#999", display: "flex", alignItems: "center", gap: 4 }}>⏱ {meal.time}</span>
+              <span style={{
+                background: colors.tag, color: colors.accent, padding: "3px 12px",
+                borderRadius: 20, fontWeight: 600, fontSize: 12,
+              }}>
                 {meal.cal} cal
               </span>
-              <span style={{ background: colors.tag, color: colors.accent, padding: "2px 10px", borderRadius: 20, fontWeight: 600 }}>
+              <span style={{
+                background: colors.tag, color: colors.accent, padding: "3px 12px",
+                borderRadius: 20, fontWeight: 600, fontSize: 12,
+              }}>
                 {meal.protein}g protein
               </span>
             </div>
@@ -895,7 +909,10 @@ export default function App() {
             {meal.tags && (
               <div style={{ display: "flex", gap: 6, marginBottom: 16 }}>
                 {meal.tags.map((t) => (
-                  <span key={t} style={{ fontSize: 12, background: "#f0f0f0", padding: "3px 10px", borderRadius: 12, color: "#555" }}>
+                  <span key={t} style={{
+                    fontSize: 12, background: "#f5f5f0", padding: "4px 12px",
+                    borderRadius: 12, color: "#666", fontWeight: 500,
+                  }}>
                     {t === "🏢" ? "🏢 Office" : "🏠 Home"}
                   </span>
                 ))}
@@ -904,9 +921,10 @@ export default function App() {
 
             {meal.doubles !== undefined && (
               <div style={{
-                fontSize: 13, padding: "8px 14px", borderRadius: 10, marginBottom: 20,
+                fontSize: 13, padding: "10px 14px", borderRadius: 12, marginBottom: 20,
                 background: meal.doubles ? "#E8F5E9" : "#FFF3E0",
                 color: meal.doubles ? "#2E7D32" : "#E65100",
+                fontWeight: 500,
               }}>
                 {meal.doubles ? "✓ Doubles well — cook once, eat two nights" : "Best cooked fresh each time"}
               </div>
@@ -917,17 +935,20 @@ export default function App() {
             </h2>
             <div style={{
               background: "white", borderRadius: 14, padding: "4px 0",
-              border: `1px solid ${colors.border}`, marginBottom: 24,
+              border: "1px solid #e8e8e4", marginBottom: 24,
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
             }}>
               {meal.ingredients.map((ing, i) => (
                 <div
                   key={i}
                   style={{
-                    padding: "12px 16px",
-                    borderBottom: i < meal.ingredients.length - 1 ? "1px solid #f0f0f0" : "none",
-                    fontSize: 15, color: "#333", lineHeight: 1.4,
+                    padding: "11px 16px",
+                    borderBottom: i < meal.ingredients.length - 1 ? "1px solid #f5f5f0" : "none",
+                    fontSize: 14, color: "#333", lineHeight: 1.5,
+                    display: "flex", alignItems: "flex-start", gap: 10,
                   }}
                 >
+                  <span style={{ color: colors.accent, fontSize: 8, marginTop: 6, flexShrink: 0 }}>●</span>
                   {ing}
                 </div>
               ))}
@@ -938,7 +959,8 @@ export default function App() {
             </h2>
             <div style={{
               background: "white", borderRadius: 14, padding: "16px",
-              border: `1px solid ${colors.border}`, fontSize: 15, lineHeight: 1.6, color: "#333",
+              border: "1px solid #e8e8e4", fontSize: 14, lineHeight: 1.7, color: "#444",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
             }}>
               {meal.method}
             </div>
@@ -950,7 +972,8 @@ export default function App() {
                 </h2>
                 <div style={{
                   background: "white", borderRadius: 14, padding: "16px",
-                  border: `1px solid ${colors.border}`, fontSize: 15, color: "#333",
+                  border: "1px solid #e8e8e4", fontSize: 14, color: "#444",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
                 }}>
                   {meal.detail}
                 </div>
@@ -977,52 +1000,57 @@ export default function App() {
             style={{
               position: "sticky", top: 0, zIndex: 10, background: "#FAFAF7",
               width: "100%", padding: "16px 0 8px", border: "none", cursor: "pointer",
-              display: "flex", alignItems: "center", gap: 8, fontSize: 15, color: "#666",
-              fontFamily: "inherit",
+              display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#999",
+              fontFamily: "inherit", fontWeight: 500,
             }}
           >
-            <span style={{ fontSize: 18 }}>←</span> Back
+            <span style={{ fontSize: 16 }}>←</span> Back
           </button>
-          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 22, margin: "8px 0 20px", color: "#1a1a1a" }}>
-            Swap {SLOT_LABELS[slot]} — {day}
+          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 22, margin: "8px 0 6px", color: "#1a1a1a", letterSpacing: -0.3 }}>
+            Swap {SLOT_LABELS[slot]}
           </h1>
+          <div style={{ fontSize: 13, color: "#aaa", marginBottom: 20 }}>{day}</div>
           <div style={{ paddingBottom: 32 }}>
             {groups.map((group) => (
               <div key={group.label}>
                 <div style={{
-                  fontSize: 12, fontWeight: 700, textTransform: "uppercase",
-                  letterSpacing: 1, color: "#999", padding: "16px 0 8px",
-                  borderTop: group.isPrimary ? "none" : "1px solid #eee",
+                  fontSize: 11, fontWeight: 700, textTransform: "uppercase",
+                  letterSpacing: 1.2, color: "#bbb", padding: "16px 0 8px",
+                  borderTop: group.isPrimary ? "none" : "1px solid #f0ede8",
                   marginTop: group.isPrimary ? 0 : 8,
                 }}>
                   {group.label}
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  {group.meals.map((meal) => (
-                    <button
-                      key={meal.id}
-                      onClick={() => handleSwap(day, slot, meal.id)}
-                      style={{
-                        display: "flex", alignItems: "center", gap: 14,
-                        padding: "14px 16px", borderRadius: 14,
-                        background: meal.id === current ? colors.tag : "white",
-                        border: `1.5px solid ${meal.id === current ? colors.accent : "#e0e0e0"}`,
-                        cursor: "pointer", textAlign: "left", fontFamily: "inherit",
-                        transition: "all 0.15s",
-                      }}
-                    >
-                      <span style={{ fontSize: 28, flexShrink: 0 }}>{meal.icon}</span>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontWeight: 600, fontSize: 15, color: "#1a1a1a", marginBottom: 2 }}>
-                          {meal.name} {meal.id === current && "✓"}
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {group.meals.map((meal) => {
+                    const isCurrent = meal.id === current;
+                    return (
+                      <button
+                        key={meal.id}
+                        onClick={() => handleSwap(day, slot, meal.id)}
+                        style={{
+                          display: "flex", alignItems: "center", gap: 14,
+                          padding: "12px 14px", borderRadius: 12,
+                          background: isCurrent ? colors.tag : "white",
+                          border: `1.5px solid ${isCurrent ? colors.accent : "#e8e8e4"}`,
+                          cursor: "pointer", textAlign: "left", fontFamily: "inherit",
+                          transition: "all 0.15s",
+                          boxShadow: isCurrent ? `0 2px 8px ${colors.accent}22` : "0 1px 3px rgba(0,0,0,0.04)",
+                        }}
+                      >
+                        <span style={{ fontSize: 26, flexShrink: 0 }}>{meal.icon}</span>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontWeight: 600, fontSize: 14, color: "#1a1a1a", marginBottom: 2 }}>
+                            {meal.name} {isCurrent && <span style={{ color: colors.accent }}>✓</span>}
+                          </div>
+                          <div style={{ fontSize: 12, color: "#999" }}>
+                            {meal.cal} cal · {meal.protein}g protein
+                            {meal.time && ` · ${meal.time}`}
+                          </div>
                         </div>
-                        <div style={{ fontSize: 13, color: "#888" }}>
-                          {meal.cal} cal · {meal.protein}g protein
-                          {meal.time && ` · ${meal.time}`}
-                        </div>
-                      </div>
-                    </button>
-                  ))}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             ))}
@@ -1042,65 +1070,68 @@ export default function App() {
             style={{
               position: "sticky", top: 0, zIndex: 10, background: "#FAFAF7",
               width: "100%", padding: "16px 0 8px", border: "none", cursor: "pointer",
-              display: "flex", alignItems: "center", gap: 8, fontSize: 15, color: "#666",
-              fontFamily: "inherit",
+              display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#999",
+              fontFamily: "inherit", fontWeight: 500,
             }}
           >
-            <span style={{ fontSize: 18 }}>←</span> Back to Meal Plan
+            <span style={{ fontSize: 16 }}>←</span> Back to Meal Plan
           </button>
 
-          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 24, margin: "0 0 20px", color: "#1a1a1a" }}>
-            Weekly Summary
+          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 24, margin: "0 0 20px", color: "#1a1a1a", letterSpacing: -0.3 }}>
+            📊 Weekly Summary
           </h1>
 
           {/* Top-level stats */}
           <div style={{
             display: "flex", justifyContent: "center", gap: 20, marginBottom: 24,
-            background: "white", borderRadius: 16, border: "1px solid #e8e8e4", padding: "20px 16px",
+            background: "white", borderRadius: 14, border: "1px solid #e8e8e4", padding: "20px 16px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
           }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontWeight: 700, fontSize: 22, color: "#1a1a1a" }}>
+              <div style={{ fontWeight: 700, fontSize: 22, color: "#D4842C" }}>
                 {Math.round(weeklySummary.totalCal / 7)}
               </div>
-              <div style={{ color: "#999", fontSize: 12 }}>avg cal / day</div>
+              <div style={{ color: "#aaa", fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: 0.5 }}>avg cal / day</div>
             </div>
-            <div style={{ width: 1, background: "#e0e0e0" }} />
+            <div style={{ width: 1, background: "#f0ede8" }} />
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontWeight: 700, fontSize: 22, color: "#1a1a1a" }}>{weeklySummary.avgProtein}g</div>
-              <div style={{ color: "#999", fontSize: 12 }}>avg protein / day</div>
+              <div style={{ fontWeight: 700, fontSize: 22, color: "#4a8a4a" }}>{weeklySummary.avgProtein}g</div>
+              <div style={{ color: "#aaa", fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: 0.5 }}>avg protein / day</div>
             </div>
-            <div style={{ width: 1, background: "#e0e0e0" }} />
+            <div style={{ width: 1, background: "#f0ede8" }} />
             <div style={{ textAlign: "center" }}>
               <div style={{ fontWeight: 700, fontSize: 22, color: "#1a1a1a" }}>
                 {weeklySummary.logged}/{weeklySummary.total}
               </div>
-              <div style={{ color: "#999", fontSize: 12 }}>meals logged</div>
+              <div style={{ color: "#aaa", fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: 0.5 }}>meals logged</div>
             </div>
           </div>
 
           {/* Per-day breakdown */}
           <div style={{
-            background: "white", borderRadius: 16, border: "1px solid #e8e8e4", overflow: "hidden",
+            background: "white", borderRadius: 14, border: "1px solid #e8e8e4", overflow: "hidden",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
           }}>
             {weeklySummary.dayStats.map((ds, i) => (
               <div
                 key={ds.day}
                 style={{
                   display: "flex", alignItems: "center", padding: "14px 16px",
-                  borderBottom: i < 6 ? "1px solid #f0f0f0" : "none",
+                  borderBottom: i < 6 ? "1px solid #f5f5f0" : "none",
+                  background: ds.day === today ? "#FFFBF5" : "transparent",
                 }}
               >
-                <div style={{ width: 40, fontWeight: 700, fontSize: 14, color: ds.day === today ? "#C47D2B" : "#1a1a1a" }}>
+                <div style={{ width: 40, fontWeight: 700, fontSize: 14, color: ds.day === today ? "#D4842C" : "#1a1a1a" }}>
                   {ds.day}
                 </div>
-                <div style={{ flex: 1, fontSize: 13, color: "#777" }}>
+                <div style={{ flex: 1, fontSize: 12, color: "#999" }}>
                   {ds.cal} cal · {ds.protein}g
                 </div>
                 <div style={{ display: "flex", gap: 4 }}>
                   {[0, 1, 2, 3].map((j) => (
                     <div key={j} style={{
                       width: 10, height: 10, borderRadius: 5,
-                      background: j < ds.logged ? "#4a8a4a" : "#e0e0e0",
+                      background: j < ds.logged ? "linear-gradient(135deg, #4a8a4a, #5a9a5a)" : "#eee",
                       transition: "background 0.2s",
                     }} />
                   ))}
@@ -1125,41 +1156,56 @@ export default function App() {
             style={{
               position: "sticky", top: 0, zIndex: 10, background: "#FAFAF7",
               width: "100%", padding: "16px 0 8px", border: "none", cursor: "pointer",
-              display: "flex", alignItems: "center", gap: 8, fontSize: 15, color: "#666",
-              fontFamily: "inherit",
+              display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#999",
+              fontFamily: "inherit", fontWeight: 500,
             }}
           >
-            <span style={{ fontSize: 18 }}>←</span> Back to Meal Plan
+            <span style={{ fontSize: 16 }}>←</span> Back to Meal Plan
           </button>
 
-          <div style={{ marginBottom: 20 }}>
-            <h1 style={{
-              fontFamily: "'DM Serif Display', serif", fontSize: 24,
-              margin: "0 0 6px", color: "#1a1a1a",
-            }}>
-              Shopping List
-            </h1>
-            <div style={{ fontSize: 14, color: "#999" }}>
-              {checkedCount} of {shoppingList.length} items checked
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 20 }}>
+            <div>
+              <h1 style={{
+                fontFamily: "'DM Serif Display', serif", fontSize: 24,
+                margin: "0 0 4px", color: "#1a1a1a", letterSpacing: -0.3,
+              }}>
+                🛒 Shopping List
+              </h1>
+              <div style={{ fontSize: 13, color: "#aaa" }}>
+                {checkedCount} of {shoppingList.length} items
+              </div>
             </div>
+            {checkedCount > 0 && (
+              <button
+                onClick={clearShoppingChecks}
+                style={{
+                  padding: "6px 14px", borderRadius: 8,
+                  border: "1px solid #e8e8e4", background: "white", fontSize: 12,
+                  color: "#999", cursor: "pointer", fontFamily: "inherit", fontWeight: 500,
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                }}
+              >
+                Clear checks
+              </button>
+            )}
           </div>
 
-          {checkedCount > 0 && (
-            <button
-              onClick={clearShoppingChecks}
-              style={{
-                marginBottom: 16, padding: "8px 16px", borderRadius: 10,
-                border: "1px solid #ddd", background: "white", fontSize: 13,
-                color: "#888", cursor: "pointer", fontFamily: "inherit",
-              }}
-            >
-              Clear all checks
-            </button>
-          )}
+          {/* Progress bar */}
+          <div style={{
+            display: "flex", gap: 2, borderRadius: 4, overflow: "hidden", marginBottom: 16, height: 4,
+          }}>
+            <div style={{
+              width: shoppingList.length > 0 ? `${(checkedCount / shoppingList.length) * 100}%` : 0,
+              background: "linear-gradient(90deg, #4a8a4a, #5a9a5a)",
+              borderRadius: 4, transition: "width 0.3s",
+            }} />
+            <div style={{ flex: 1, background: "#eee", borderRadius: 4 }} />
+          </div>
 
           <div style={{
-            background: "white", borderRadius: 16,
+            background: "white", borderRadius: 14,
             border: "1px solid #e8e8e4", overflow: "hidden",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
           }}>
             {shoppingList.map((item, i) => {
               const isChecked = shoppingChecked[item.key];
@@ -1169,41 +1215,42 @@ export default function App() {
                   onClick={() => toggleShoppingItem(item.key)}
                   style={{
                     width: "100%", display: "flex", alignItems: "flex-start", gap: 12,
-                    padding: "14px 16px", background: "none", border: "none",
-                    borderBottom: i < shoppingList.length - 1 ? "1px solid #f0f0f0" : "none",
+                    padding: "12px 14px", background: isChecked ? "#FAFAF7" : "none", border: "none",
+                    borderBottom: i < shoppingList.length - 1 ? "1px solid #f5f5f0" : "none",
                     cursor: "pointer", textAlign: "left", fontFamily: "inherit",
-                    opacity: isChecked ? 0.5 : 1,
-                    transition: "opacity 0.2s",
+                    opacity: isChecked ? 0.55 : 1,
+                    transition: "all 0.2s",
                   }}
                 >
                   <div style={{
-                    width: 22, height: 22, borderRadius: 6, flexShrink: 0, marginTop: 1,
-                    border: `2px solid ${isChecked ? "#4a8a4a" : "#ccc"}`,
+                    width: 20, height: 20, borderRadius: 6, flexShrink: 0, marginTop: 1,
+                    border: `2px solid ${isChecked ? "#4a8a4a" : "#d0d0d0"}`,
                     background: isChecked ? "#4a8a4a" : "transparent",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     transition: "all 0.2s",
                   }}>
                     {isChecked && (
-                      <span style={{ color: "white", fontSize: 12, fontWeight: 700 }}>✓</span>
+                      <span style={{ color: "white", fontSize: 11, fontWeight: 700 }}>✓</span>
                     )}
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{
-                      fontSize: 15, color: "#1a1a1a", lineHeight: 1.4,
+                      fontSize: 14, color: isChecked ? "#999" : "#1a1a1a", lineHeight: 1.4,
                       textDecoration: isChecked ? "line-through" : "none",
+                      textDecorationColor: "#ccc",
                     }}>
                       {item.ingredient}
                       {item.count > 1 && (
                         <span style={{
-                          marginLeft: 8, fontSize: 12, fontWeight: 600,
-                          background: "#f0f0f0", padding: "2px 8px",
-                          borderRadius: 10, color: "#666",
+                          marginLeft: 8, fontSize: 11, fontWeight: 600,
+                          background: "#f5f0eb", padding: "2px 8px",
+                          borderRadius: 10, color: "#D4842C",
                         }}>
                           x{item.count}
                         </span>
                       )}
                     </div>
-                    <div style={{ fontSize: 12, color: "#aaa", marginTop: 4, lineHeight: 1.4 }}>
+                    <div style={{ fontSize: 11, color: "#bbb", marginTop: 3, lineHeight: 1.4 }}>
                       {item.meals.join(" · ")}
                     </div>
                   </div>
@@ -1226,124 +1273,168 @@ export default function App() {
       <div style={{ maxWidth: 480, margin: "0 auto", padding: "0 16px 32px" }}>
 
         {/* Header */}
-        <div style={{ padding: "20px 0 16px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 24, margin: 0, color: "#1a1a1a" }}>
-              Meal Plan
-            </h1>
-            <div style={{
-              display: "flex", background: "white", borderRadius: 10, padding: 3,
-              border: "1px solid #e8e8e4",
-            }}>
-              {Object.entries(USERS).map(([key, u]) => (
-                <button
-                  key={key}
-                  onClick={() => switchUser(key)}
-                  style={{
-                    padding: "6px 14px", borderRadius: 8, border: "none",
-                    fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
-                    background: key === activeUser ? "#1a1a1a" : "transparent",
-                    color: key === activeUser ? "white" : "#888",
-                    transition: "all 0.2s",
-                  }}
-                >
-                  {u.name}
-                </button>
-              ))}
+        <div style={{ padding: "24px 0 16px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+            <div>
+              <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, margin: 0, color: "#1a1a1a", letterSpacing: -0.5 }}>
+                Meal Plan
+              </h1>
+              {userConfig.showTargets && (
+                <div style={{ fontSize: 12, color: "#aaa", marginTop: 2, letterSpacing: 0.5 }}>
+                  ~2,200 cal · ~130g protein · daily
+                </div>
+              )}
             </div>
-          </div>
-          <div style={{ textAlign: "center", marginTop: 4 }}>
-            {userConfig.showTargets && (
-              <div style={{ fontSize: 13, color: "#999", letterSpacing: 1 }}>
-                ~2,200 cal · ~130g protein · daily
-              </div>
-            )}
-            {streak > 0 && (
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              {streak > 0 && (
+                <div style={{
+                  fontSize: 12, fontWeight: 700,
+                  background: "linear-gradient(135deg, #FFF3E0, #FFE0B2)", color: "#E65100",
+                  padding: "5px 12px", borderRadius: 20,
+                  boxShadow: "0 1px 3px rgba(230,81,0,0.15)",
+                }}>
+                  🔥 {streak}
+                </div>
+              )}
               <div style={{
-                marginTop: 6, display: "inline-block", fontSize: 13, fontWeight: 600,
-                background: "#FFF3E0", color: "#E65100", padding: "3px 12px", borderRadius: 20,
+                display: "flex", background: "white", borderRadius: 10, padding: 3,
+                border: "1px solid #e8e8e4", boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
               }}>
-                {streak} day streak
+                {Object.entries(USERS).map(([key, u]) => (
+                  <button
+                    key={key}
+                    onClick={() => switchUser(key)}
+                    style={{
+                      padding: "6px 16px", borderRadius: 8, border: "none",
+                      fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+                      background: key === activeUser ? "linear-gradient(135deg, #D4842C, #C47D2B)" : "transparent",
+                      color: key === activeUser ? "white" : "#999",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    {u.name}
+                  </button>
+                ))}
               </div>
-            )}
+            </div>
           </div>
         </div>
 
         {/* Day selector */}
         <div style={{
-          display: "flex", gap: 4, marginBottom: 20,
+          display: "flex", gap: 3, marginBottom: 20,
           background: "white", borderRadius: 14, padding: 4,
-          border: "1px solid #e8e8e4",
+          border: "1px solid #e8e8e4", boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
         }}>
-          {DAYS.map((d) => (
-            <button
-              key={d}
-              onClick={() => setSelectedDay(d)}
-              style={{
-                flex: 1, padding: "10px 0", borderRadius: 11, border: "none",
-                cursor: "pointer", fontSize: 13, fontWeight: 600,
-                fontFamily: "inherit",
-                background: d === selectedDay ? "#1a1a1a" : "transparent",
-                color: d === selectedDay ? "white" : d === today ? "#C47D2B" : "#888",
-                transition: "all 0.2s",
-                position: "relative",
-              }}
-            >
-              {d}
-              {d === today && d !== selectedDay && (
-                <div style={{
-                  width: 4, height: 4, borderRadius: 2,
-                  background: "#C47D2B", margin: "3px auto 0",
-                }} />
-              )}
-            </button>
-          ))}
+          {DAYS.map((d) => {
+            const isSelected = d === selectedDay;
+            const isToday = d === today;
+            return (
+              <button
+                key={d}
+                onClick={() => setSelectedDay(d)}
+                style={{
+                  flex: 1, padding: "12px 0 10px", borderRadius: 11, border: "none",
+                  cursor: "pointer", fontSize: 13, fontWeight: isSelected ? 700 : 600,
+                  fontFamily: "inherit",
+                  background: isSelected ? "linear-gradient(135deg, #D4842C, #C47D2B)" : "transparent",
+                  color: isSelected ? "white" : isToday ? "#D4842C" : "#999",
+                  transition: "all 0.2s",
+                  position: "relative",
+                }}
+              >
+                {d}
+                {isToday && !isSelected && (
+                  <div style={{
+                    width: 5, height: 5, borderRadius: 3,
+                    background: "#D4842C", margin: "4px auto 0",
+                  }} />
+                )}
+                {isSelected && isToday && (
+                  <div style={{
+                    width: 5, height: 5, borderRadius: 3,
+                    background: "rgba(255,255,255,0.6)", margin: "4px auto 0",
+                  }} />
+                )}
+              </button>
+            );
+          })}
         </div>
 
         {/* Daily summary */}
-        <div style={{
-          display: "flex", justifyContent: "center", gap: 24,
-          marginBottom: 20, fontSize: 14,
-        }}>
-          <div style={{ textAlign: "center" }}>
-            <div style={{ fontWeight: 700, fontSize: 20, color: "#1a1a1a" }}>{dayCalories}</div>
-            <div style={{ color: "#999", fontSize: 12 }}>calories</div>
-          </div>
-          <div style={{ width: 1, background: "#e0e0e0" }} />
-          <div style={{ textAlign: "center" }}>
-            <div style={{ fontWeight: 700, fontSize: 20, color: "#1a1a1a" }}>{dayProtein}g</div>
-            <div style={{ color: "#999", fontSize: 12 }}>protein</div>
-          </div>
-          <div style={{ width: 1, background: "#e0e0e0" }} />
-          <div style={{ textAlign: "center" }}>
-            <div style={{ fontWeight: 700, fontSize: 20, color: "#1a1a1a" }}>
-              {Object.values(SLOT_LABELS).filter((_, i) => checked[`${selectedDay}-${Object.keys(SLOT_LABELS)[i]}`]).length}/4
+        {(() => {
+          const loggedCount = Object.values(SLOT_LABELS).filter((_, i) => checked[`${selectedDay}-${Object.keys(SLOT_LABELS)[i]}`]).length;
+          return (
+            <div style={{
+              background: "white", borderRadius: 14, padding: "16px 20px",
+              marginBottom: 16, border: "1px solid #e8e8e4",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+            }}>
+              <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 12 }}>
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontWeight: 700, fontSize: 22, color: "#D4842C" }}>{dayCalories}</div>
+                  <div style={{ color: "#aaa", fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: 0.5 }}>calories</div>
+                </div>
+                <div style={{ width: 1, background: "#f0ede8" }} />
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontWeight: 700, fontSize: 22, color: "#4a8a4a" }}>{dayProtein}g</div>
+                  <div style={{ color: "#aaa", fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: 0.5 }}>protein</div>
+                </div>
+                <div style={{ width: 1, background: "#f0ede8" }} />
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontWeight: 700, fontSize: 22, color: "#1a1a1a" }}>{loggedCount}/4</div>
+                  <div style={{ color: "#aaa", fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: 0.5 }}>logged</div>
+                </div>
+              </div>
+              <div style={{ display: "flex", gap: 4, borderRadius: 4, overflow: "hidden" }}>
+                {[0, 1, 2, 3].map((i) => (
+                  <div key={i} style={{
+                    flex: 1, height: 4, borderRadius: 2,
+                    background: i < loggedCount ? "linear-gradient(90deg, #4a8a4a, #5a9a5a)" : "#eee",
+                    transition: "background 0.3s",
+                  }} />
+                ))}
+              </div>
             </div>
-            <div style={{ color: "#999", fontSize: 12 }}>logged</div>
-          </div>
-        </div>
+          );
+        })()}
 
         {/* Motivation card */}
         <button
           onClick={() => setShowMotivation((p) => !p)}
           style={{
-            width: "100%", marginBottom: 16, padding: "12px 16px", borderRadius: 12,
-            background: "#F8F0FF", border: "1px solid #E0D0F0",
+            width: "100%", marginBottom: 14, padding: showMotivation ? "10px 14px 12px" : "10px 14px",
+            borderRadius: 12,
+            background: "linear-gradient(135deg, #F8F0FF, #F0E8FA)", border: "1px solid #E0D0F0",
             cursor: "pointer", textAlign: "left", fontFamily: "inherit",
+            boxShadow: "0 1px 3px rgba(123,94,167,0.08)",
+            transition: "all 0.2s",
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: "#7B5EA7" }}>
-              Why I'm doing this
+            <span style={{ fontSize: 12, fontWeight: 600, color: "#7B5EA7", display: "flex", alignItems: "center", gap: 6 }}>
+              💜 Why I'm doing this
+              {!showMotivation && (
+                <span style={{ fontSize: 11, color: "#B09ACC", fontWeight: 400 }}>
+                  — {MOTIVATIONS.slice(0, 2).join(", ")}…
+                </span>
+              )}
             </span>
-            <span style={{ fontSize: 14, color: "#7B5EA7", fontWeight: 600 }}>{showMotivation ? "−" : "+"}</span>
+            <span style={{
+              fontSize: 11, color: "#7B5EA7", fontWeight: 600,
+              width: 22, height: 22, borderRadius: 11,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              background: "rgba(123,94,167,0.1)",
+            }}>
+              {showMotivation ? "−" : "+"}
+            </span>
           </div>
           {showMotivation && (
             <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 6 }}>
               {MOTIVATIONS.map((m) => (
                 <span key={m} style={{
-                  fontSize: 12, padding: "4px 10px", borderRadius: 20,
-                  background: "#EDE4F7", color: "#5C3D8F",
+                  fontSize: 11, padding: "4px 10px", borderRadius: 20,
+                  background: "rgba(255,255,255,0.7)", color: "#5C3D8F", fontWeight: 500,
                 }}>
                   {m}
                 </span>
@@ -1353,7 +1444,7 @@ export default function App() {
         </button>
 
         {/* Meal cards */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {Object.entries(SLOT_LABELS).map(([slot, label]) => {
             const mealId = dayPlan[slot];
             const meal = getMeal(mealId);
@@ -1366,11 +1457,13 @@ export default function App() {
                 key={slot}
                 style={{
                   background: "white",
-                  borderRadius: 16,
-                  border: `1.5px solid ${isChecked ? "#ccc" : colors.border}`,
+                  borderRadius: 14,
+                  border: `1px solid ${isChecked ? "#e8e8e4" : colors.border}`,
                   overflow: "hidden",
-                  opacity: isChecked ? 0.55 : 1,
+                  opacity: isChecked ? 0.6 : 1,
                   transition: "all 0.25s",
+                  boxShadow: isChecked ? "none" : "0 1px 4px rgba(0,0,0,0.05)",
+                  borderLeft: `4px solid ${isChecked ? "#ccc" : colors.accent}`,
                 }}
               >
                 <div style={{ display: "flex", alignItems: "stretch" }}>
@@ -1378,21 +1471,20 @@ export default function App() {
                   <button
                     onClick={() => toggleCheck(selectedDay, slot)}
                     style={{
-                      width: 56, display: "flex", alignItems: "center", justifyContent: "center",
-                      background: isChecked ? "#f5f5f5" : colors.bg,
+                      width: 48, display: "flex", alignItems: "center", justifyContent: "center",
+                      background: "transparent",
                       border: "none", cursor: "pointer",
-                      borderRight: `1px solid ${isChecked ? "#ddd" : colors.border}`,
                       flexShrink: 0,
                     }}
                   >
                     <div style={{
-                      width: 24, height: 24, borderRadius: 7,
+                      width: 22, height: 22, borderRadius: 6,
                       border: `2px solid ${isChecked ? "#aaa" : colors.accent}`,
                       background: isChecked ? colors.accent : "transparent",
                       display: "flex", alignItems: "center", justifyContent: "center",
                       transition: "all 0.2s",
                     }}>
-                      {isChecked && <span style={{ color: "white", fontSize: 14, fontWeight: 700 }}>✓</span>}
+                      {isChecked && <span style={{ color: "white", fontSize: 12, fontWeight: 700 }}>✓</span>}
                     </div>
                   </button>
 
@@ -1400,25 +1492,26 @@ export default function App() {
                   <button
                     onClick={() => setOpenRecipe(mealId)}
                     style={{
-                      flex: 1, padding: "14px 14px", textAlign: "left",
+                      flex: 1, padding: "12px 8px 12px 0", textAlign: "left",
                       background: "none", border: "none", cursor: "pointer",
                       fontFamily: "inherit",
                     }}
                   >
                     <div style={{
-                      fontSize: 11, fontWeight: 600, textTransform: "uppercase",
-                      letterSpacing: 0.8, color: isChecked ? "#aaa" : colors.accent, marginBottom: 4,
+                      fontSize: 10, fontWeight: 700, textTransform: "uppercase",
+                      letterSpacing: 1, color: isChecked ? "#bbb" : colors.accent, marginBottom: 3,
                     }}>
                       {label}
                     </div>
                     <div style={{
-                      fontSize: 16, fontWeight: 600, color: "#1a1a1a", marginBottom: 4,
+                      fontSize: 15, fontWeight: 600, color: isChecked ? "#999" : "#1a1a1a", marginBottom: 3,
                       display: "flex", alignItems: "center", gap: 8,
                       textDecoration: isChecked ? "line-through" : "none",
+                      textDecorationColor: "#ccc",
                     }}>
-                      <span>{meal.icon}</span> {meal.name}
+                      <span style={{ fontSize: 20 }}>{meal.icon}</span> {meal.name}
                     </div>
-                    <div style={{ fontSize: 13, color: "#999" }}>
+                    <div style={{ fontSize: 12, color: isChecked ? "#bbb" : "#999" }}>
                       {meal.cal} cal · {meal.protein}g protein
                       {meal.time && ` · ${meal.time}`}
                     </div>
@@ -1430,7 +1523,8 @@ export default function App() {
                     style={{
                       width: 44, display: "flex", alignItems: "center", justifyContent: "center",
                       background: "none", border: "none", cursor: "pointer",
-                      color: "#ccc", fontSize: 18, flexShrink: 0,
+                      color: isChecked ? "#ddd" : "#bbb", fontSize: 18, flexShrink: 0,
+                      borderLeft: "1px solid #f0f0f0",
                     }}
                     title="Swap meal"
                   >
@@ -1448,43 +1542,47 @@ export default function App() {
             onClick={() => setShowShoppingList(true)}
             style={{
               flex: 1, padding: "14px 0", borderRadius: 14,
-              border: "1.5px solid #1a1a1a", background: "#1a1a1a", color: "white",
-              fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+              border: "none", background: "linear-gradient(135deg, #D4842C, #C47D2B)", color: "white",
+              fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+              boxShadow: "0 2px 8px rgba(212,132,44,0.3)",
             }}
           >
-            Shopping List
+            🛒 Shopping List
           </button>
           <button
             onClick={() => setShowWeeklySummary(true)}
             style={{
               flex: 1, padding: "14px 0", borderRadius: 14,
-              border: "1.5px solid #1a1a1a", background: "#1a1a1a", color: "white",
-              fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+              border: "none", background: "linear-gradient(135deg, #D4842C, #C47D2B)", color: "white",
+              fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+              boxShadow: "0 2px 8px rgba(212,132,44,0.3)",
             }}
           >
-            Weekly Summary
+            📊 Weekly Summary
           </button>
         </div>
         <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
           <button
             onClick={handleShuffle}
             style={{
-              flex: 1, padding: "14px 0", borderRadius: 14,
-              border: "1.5px solid #ddd", background: "white", color: "#888",
-              fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+              flex: 1, padding: "13px 0", borderRadius: 14,
+              border: "1px solid #e8e8e4", background: "white", color: "#888",
+              fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
             }}
           >
-            Shuffle Week
+            🔀 Shuffle Week
           </button>
           <button
             onClick={handleClearAll}
             style={{
-              flex: 1, padding: "14px 0", borderRadius: 14,
-              border: "1.5px solid #ddd", background: "white", color: "#888",
-              fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+              flex: 1, padding: "13px 0", borderRadius: 14,
+              border: "1px solid #e8e8e4", background: "white", color: "#888",
+              fontSize: 14, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
             }}
           >
-            Clear All
+            🗑 Clear All
           </button>
         </div>
       </div>
