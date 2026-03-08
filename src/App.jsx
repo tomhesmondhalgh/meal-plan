@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 
 const MEALS = {
   breakfasts: [
@@ -558,9 +558,78 @@ const MOTIVATIONS = [
   "To accomplish something hard",
 ];
 
+const USERS = {
+  tom: { name: "Tom", showTargets: true },
+  lyra: { name: "Lyra", showTargets: false },
+};
+
 const LS_WEEK_KEY = "mealplan-week";
 const LS_CHECKED_KEY = "mealplan-checked";
 const LS_SHOPPING_CHECKED_KEY = "mealplan-shopping-checked";
+const LS_ACTIVE_USER_KEY = "mealplan-active-user";
+
+function lsKey(base, user) { return `${base}-${user}`; }
+
+// Migrate old non-scoped data to tom's keys (one-time)
+function migrateToUserScoped() {
+  try {
+    const oldWeek = localStorage.getItem(LS_WEEK_KEY);
+    if (oldWeek && !localStorage.getItem(lsKey(LS_WEEK_KEY, "tom"))) {
+      localStorage.setItem(lsKey(LS_WEEK_KEY, "tom"), oldWeek);
+      localStorage.removeItem(LS_WEEK_KEY);
+    }
+    const oldChecked = localStorage.getItem(LS_CHECKED_KEY);
+    if (oldChecked && !localStorage.getItem(lsKey(LS_CHECKED_KEY, "tom"))) {
+      localStorage.setItem(lsKey(LS_CHECKED_KEY, "tom"), oldChecked);
+      localStorage.removeItem(LS_CHECKED_KEY);
+    }
+    const oldShopping = localStorage.getItem(LS_SHOPPING_CHECKED_KEY);
+    if (oldShopping && !localStorage.getItem(lsKey(LS_SHOPPING_CHECKED_KEY, "tom"))) {
+      localStorage.setItem(lsKey(LS_SHOPPING_CHECKED_KEY, "tom"), oldShopping);
+      localStorage.removeItem(LS_SHOPPING_CHECKED_KEY);
+    }
+  } catch {}
+}
+
+migrateToUserScoped();
+
+function loadWeek(user) {
+  try {
+    const stored = localStorage.getItem(lsKey(LS_WEEK_KEY, user));
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      const isValid = DAYS.every(
+        (d) => parsed[d] && parsed[d].breakfast && parsed[d].lunch && parsed[d].dinner && parsed[d].snack
+      );
+      if (isValid) return parsed;
+    }
+  } catch {}
+  return DEFAULT_WEEK;
+}
+
+function loadChecked(user) {
+  try {
+    const stored = localStorage.getItem(lsKey(LS_CHECKED_KEY, user));
+    if (stored) return JSON.parse(stored);
+  } catch {}
+  return {};
+}
+
+function loadShoppingChecked(user) {
+  try {
+    const stored = localStorage.getItem(lsKey(LS_SHOPPING_CHECKED_KEY, user));
+    if (stored) return JSON.parse(stored);
+  } catch {}
+  return {};
+}
+
+function loadActiveUser() {
+  try {
+    const stored = localStorage.getItem(LS_ACTIVE_USER_KEY);
+    if (stored && USERS[stored]) return stored;
+  } catch {}
+  return "tom";
+}
 
 function getMeal(id) {
   const all = [...MEALS.breakfasts, ...MEALS.lunches, ...MEALS.dinners, ...MEALS.snacks];
@@ -626,51 +695,45 @@ function getTodayDay() {
 }
 
 export default function App() {
-  const [week, setWeek] = useState(() => {
-    try {
-      const stored = localStorage.getItem(LS_WEEK_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        const isValid = DAYS.every(
-          (d) => parsed[d] && parsed[d].breakfast && parsed[d].lunch && parsed[d].dinner && parsed[d].snack
-        );
-        if (isValid) return parsed;
-      }
-    } catch {}
-    return DEFAULT_WEEK;
-  });
-  const [checked, setChecked] = useState(() => {
-    try {
-      const stored = localStorage.getItem(LS_CHECKED_KEY);
-      if (stored) return JSON.parse(stored);
-    } catch {}
-    return {};
-  });
+  const [activeUser, setActiveUser] = useState(loadActiveUser);
+  const [week, setWeek] = useState(() => loadWeek(activeUser));
+  const [checked, setChecked] = useState(() => loadChecked(activeUser));
   const [selectedDay, setSelectedDay] = useState(getTodayDay());
   const [openRecipe, setOpenRecipe] = useState(null);
   const [swapping, setSwapping] = useState(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
   const [showMotivation, setShowMotivation] = useState(true);
   const [showWeeklySummary, setShowWeeklySummary] = useState(false);
-  const [shoppingChecked, setShoppingChecked] = useState(() => {
-    try {
-      const stored = localStorage.getItem(LS_SHOPPING_CHECKED_KEY);
-      if (stored) return JSON.parse(stored);
-    } catch {}
-    return {};
-  });
+  const [shoppingChecked, setShoppingChecked] = useState(() => loadShoppingChecked(activeUser));
+
+  const userConfig = USERS[activeUser];
 
   useEffect(() => {
-    localStorage.setItem(LS_WEEK_KEY, JSON.stringify(week));
-  }, [week]);
+    localStorage.setItem(lsKey(LS_WEEK_KEY, activeUser), JSON.stringify(week));
+  }, [week, activeUser]);
 
   useEffect(() => {
-    localStorage.setItem(LS_CHECKED_KEY, JSON.stringify(checked));
-  }, [checked]);
+    localStorage.setItem(lsKey(LS_CHECKED_KEY, activeUser), JSON.stringify(checked));
+  }, [checked, activeUser]);
 
   useEffect(() => {
-    localStorage.setItem(LS_SHOPPING_CHECKED_KEY, JSON.stringify(shoppingChecked));
-  }, [shoppingChecked]);
+    localStorage.setItem(lsKey(LS_SHOPPING_CHECKED_KEY, activeUser), JSON.stringify(shoppingChecked));
+  }, [shoppingChecked, activeUser]);
+
+  useEffect(() => {
+    localStorage.setItem(LS_ACTIVE_USER_KEY, activeUser);
+  }, [activeUser]);
+
+  const switchUser = useCallback((user) => {
+    setActiveUser(user);
+    setWeek(loadWeek(user));
+    setChecked(loadChecked(user));
+    setShoppingChecked(loadShoppingChecked(user));
+    setOpenRecipe(null);
+    setSwapping(null);
+    setShowShoppingList(false);
+    setShowWeeklySummary(false);
+  }, []);
 
   const today = getTodayDay();
 
@@ -773,6 +836,23 @@ export default function App() {
     });
     return { totalCal, totalProtein, avgProtein: Math.round(totalProtein / 7), logged, total, dayStats };
   }, [week, checked]);
+
+  // Swipe between days
+  const touchStart = useRef(null);
+  const handleTouchStart = useCallback((e) => {
+    touchStart.current = e.touches[0].clientX;
+  }, []);
+  const handleTouchEnd = useCallback((e) => {
+    if (touchStart.current === null) return;
+    const diff = touchStart.current - e.changedTouches[0].clientX;
+    touchStart.current = null;
+    if (Math.abs(diff) < 50) return;
+    setSelectedDay((prev) => {
+      const i = DAYS.indexOf(prev);
+      if (diff > 0) return DAYS[(i + 1) % 7];
+      return DAYS[(i - 1 + 7) % 7];
+    });
+  }, []);
 
   // Recipe detail modal
   if (openRecipe) {
@@ -1138,25 +1218,55 @@ export default function App() {
 
   // Main view
   return (
-    <div style={{ minHeight: "100vh", background: "#FAFAF7", fontFamily: "'DM Sans', sans-serif" }}>
+    <div
+      style={{ minHeight: "100vh", background: "#FAFAF7", fontFamily: "'DM Sans', sans-serif" }}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div style={{ maxWidth: 480, margin: "0 auto", padding: "0 16px 32px" }}>
 
         {/* Header */}
-        <div style={{ padding: "20px 0 16px", textAlign: "center" }}>
-          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 24, margin: "0 0 2px", color: "#1a1a1a" }}>
-            Meal Plan
-          </h1>
-          <div style={{ fontSize: 13, color: "#999", letterSpacing: 1 }}>
-            ~2,200 cal · ~130g protein · daily
-          </div>
-          {streak > 0 && (
+        <div style={{ padding: "20px 0 16px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 24, margin: 0, color: "#1a1a1a" }}>
+              Meal Plan
+            </h1>
             <div style={{
-              marginTop: 6, display: "inline-block", fontSize: 13, fontWeight: 600,
-              background: "#FFF3E0", color: "#E65100", padding: "3px 12px", borderRadius: 20,
+              display: "flex", background: "white", borderRadius: 10, padding: 3,
+              border: "1px solid #e8e8e4",
             }}>
-              {streak} day streak
+              {Object.entries(USERS).map(([key, u]) => (
+                <button
+                  key={key}
+                  onClick={() => switchUser(key)}
+                  style={{
+                    padding: "6px 14px", borderRadius: 8, border: "none",
+                    fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+                    background: key === activeUser ? "#1a1a1a" : "transparent",
+                    color: key === activeUser ? "white" : "#888",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  {u.name}
+                </button>
+              ))}
             </div>
-          )}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 4 }}>
+            {userConfig.showTargets && (
+              <div style={{ fontSize: 13, color: "#999", letterSpacing: 1 }}>
+                ~2,200 cal · ~130g protein · daily
+              </div>
+            )}
+            {streak > 0 && (
+              <div style={{
+                marginTop: 6, display: "inline-block", fontSize: 13, fontWeight: 600,
+                background: "#FFF3E0", color: "#E65100", padding: "3px 12px", borderRadius: 20,
+              }}>
+                {streak} day streak
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Day selector */}
@@ -1332,38 +1442,29 @@ export default function App() {
           })}
         </div>
 
-        {/* Footer reminder */}
-        <div style={{
-          marginTop: 24, padding: "14px 16px", borderRadius: 12,
-          background: "#F8F6F0", border: "1px solid #E8E4D8",
-          fontSize: 13, color: "#887755", lineHeight: 1.5, textAlign: "center",
-        }}>
-          <strong>Log before you eat.</strong> Weigh your portions. Enjoy every bite.
-        </div>
-
         {/* Footer buttons */}
-        <button
-          onClick={() => setShowShoppingList(true)}
-          style={{
-            width: "100%", marginTop: 16, padding: "14px 0", borderRadius: 14,
-            border: "1.5px solid #1a1a1a", background: "#1a1a1a", color: "white",
-            fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-          }}
-        >
-          Shopping List
-        </button>
-        <button
-          onClick={() => setShowWeeklySummary(true)}
-          style={{
-            width: "100%", marginTop: 10, padding: "14px 0", borderRadius: 14,
-            border: "1.5px solid #1a1a1a", background: "#1a1a1a", color: "white",
-            fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-          }}
-        >
-          Weekly Summary
-        </button>
+        <div style={{ display: "flex", gap: 10, marginTop: 24 }}>
+          <button
+            onClick={() => setShowShoppingList(true)}
+            style={{
+              flex: 1, padding: "14px 0", borderRadius: 14,
+              border: "1.5px solid #1a1a1a", background: "#1a1a1a", color: "white",
+              fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+            }}
+          >
+            Shopping List
+          </button>
+          <button
+            onClick={() => setShowWeeklySummary(true)}
+            style={{
+              flex: 1, padding: "14px 0", borderRadius: 14,
+              border: "1.5px solid #1a1a1a", background: "#1a1a1a", color: "white",
+              fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
+            }}
+          >
+            Weekly Summary
+          </button>
+        </div>
         <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
           <button
             onClick={handleShuffle}
